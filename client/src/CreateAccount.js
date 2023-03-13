@@ -5,10 +5,11 @@ import { BrowserRouter as Router, Switch, Routes, Route } from 'react-router-dom
 import {useState, useEffect} from 'react';
 
 
-const Login = () => {
+const CreateAccount = () => {
 
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
 
     const handleUserIdChange = (event) => {
         setUserId(event.target.value);
@@ -18,14 +19,18 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    }
+
 
     return ( 
 
         <div className="login">
 
-            <h1> Login :   </h1>
+            <h1> Create Account :   </h1>
 
-            <div className="links">
+            <div className="create_account">
 
 
 
@@ -37,10 +42,13 @@ const Login = () => {
                 <label htmlFor="password">Password: </label>
                 <input type="text" id="password" name="password" value={password} onChange={handlePasswordChange} />
 
+                <label htmlFor="name">Name: </label>
+                <input type="text" id="name" name="name" value={name} onChange={handleNameChange} />
+
                 </form>
 
-                <Link to="/home"><button> Submit </button></Link>
-                <Link to="/createAccount"><button> Create an account </button></Link>
+                <Link to="/"><button> Submit </button></Link>
+                
 
                 {/* various links to navigate */}
 
@@ -55,4 +63,4 @@ const Login = () => {
 
 }
  
-export default Login;
+export default CreateAccount;
