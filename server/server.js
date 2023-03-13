@@ -96,6 +96,43 @@ app.post('/addUser', (req,res) => {
 
 
 
+app.get('/getUser/:userId/:password', (req, res) => {
+
+    const userId = req.params.userId;
+    const password = req.params.password;
+
+    console.log(userId);
+    console.log(password);
+
+    const sql = `SELECT * FROM users WHERE userId = '${userId}' AND password = '${password}'`;
+
+    connection.query(sql, (error, results) => {
+      if (error) {
+        res.json(null);
+        console.log("ERROR COMING");
+        console.log(error);
+    }
+
+      else{
+
+        if (results.length > 0) {
+            // User found, return user data
+            res.json(results[0]);
+            console.log("User found");
+          } else {
+            // User not found or password is incorrect
+            res.json(null);
+            console.log("User not found or password is incorrect");
+          }
+
+      }
+      
+    });
+  });
+
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);
