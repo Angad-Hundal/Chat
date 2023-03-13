@@ -47,8 +47,29 @@ const CreateAccount = () => {
 
                 </form>
 
-                <Link to="/"><button> Submit </button></Link>
-                
+                {/* <Link to="/"><button> Submit </button></Link> */}
+
+                <Link to = "/">
+                <button 
+        
+                onClick={(e) => {
+
+                fetch('http://localhost:8080/addUser', {method: 'POST', body: `userId=${userId}&password=${password}&name=${name}`,
+                headers: {'Content-type': 'application/x-www-form-urlencoded'}})
+                .then(fetch('http://localhost:8080/getPosts')
+                .then(response => response.json())
+                // .then(response => set(response))
+                .then(alert(`User Id: ${userId}, Password: ${password}, Name: ${name}`))
+                );
+
+                }}> 
+
+                Submit
+        
+                </button>
+                </Link>
+
+
 
                 {/* various links to navigate */}
 

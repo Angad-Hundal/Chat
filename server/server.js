@@ -69,10 +69,34 @@ connection.query(`
     if (error) throw error;
     console.log('Users table created');
     
-    // close the connection
-    connection.end(function (error) {
-    if (error) throw error;
-    console.log('Connection closed');
+    // // close the connection
+    // connection.end(function (error) {
+    // if (error) throw error;
+    // console.log('Connection closed');
+    // });
+});
+});
+
+
+
+// add a post to posts table
+app.post('/addUser', (req,res) => {
+
+    var userId = req.body.userId;
+    var password = req.body.password;
+    var name = req.body.name;
+
+    var query = `INSERT INTO chat.users (userId, password, name) VALUES ("${userId}", "${password}", "${name}")`;
+    connection.query(query, function (error,result) {
+        if (error) console.log(error);
+        res.send('New User Added');
     });
 });
-});
+
+
+
+
+ //serves the static files in the public folder
+ app.use('/', express.static('public'));
+ app.listen(PORT, HOST);
+ console.log(`Running on http://${HOST}:${PORT}`);
