@@ -27,7 +27,13 @@ const Login = () => {
           .then(data => {
             if (data) {
               // User found, navigate to home page
-              window.location.href = '/home';
+              console.log(data);
+              var name = data["name"];
+              var id = data["id"];
+              console.log("Name: " + name);
+              console.log("ID: " + id);
+
+              window.location.href = `/home/${id}`;
             } else {
               // User not found or password is incorrect
               setError('Invalid userId or password');

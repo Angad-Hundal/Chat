@@ -132,6 +132,31 @@ app.get('/getUser/:userId/:password', (req, res) => {
 
 
 
+app.get('/getIdUser/:id', (req, res) => {
+
+  console.log("Reached getIdUser in server");
+
+  const id = req.params.id;
+  console.log("ID: ", id);
+
+  const sql = `SELECT * FROM chat.users WHERE id = '${id}'`;
+
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error retrieving user');
+    } else {
+      if (results.length > 0) {
+        res.status(200).json(results[0]);
+        //res.status(200).json(results);
+        //res.send({ 'users': results});
+      } else {
+        res.status(404).send('User not found');
+      }
+    }
+  });
+});
+
 
  //serves the static files in the public folder
  app.use('/', express.static('public'));
