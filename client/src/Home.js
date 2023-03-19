@@ -78,6 +78,7 @@ const Home = () => {
                     <label> User Id:  </label>
                     <h3> {user.userId} </h3>
 
+                    <Link to = "/"> <button> Log out </button>  </Link>
 
                     
                     <form onSubmit = {handleSubmit}> 

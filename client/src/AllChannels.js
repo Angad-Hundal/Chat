@@ -50,7 +50,17 @@ const AllChannels = ({user}) => {
 
                         allChannels.map(channel => (
                             
-                            <h3> {channel.name} </h3>
+
+                            <div>
+
+                            <Link to={`/channels/${channel.id}/${user.id}`}>
+                                <h3> {channel.name} </h3>
+                            </Link>
+
+                            
+
+                            </div>
+
                         ))
                     )}
                     

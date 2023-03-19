@@ -98,6 +98,21 @@ app.post('/addChannel', (req,res) => {
   var name = req.body.newChannel;
   console.log("NAME: ", name);
 
+
+  connection.query(`
+    CREATE TABLE IF NOT EXISTS chat.${name} (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message VARCHAR(255) NOT NULL,
+    userID VARCHAR(255) NOT NULL,
+    userName VARCHAR(255) NOT NULL 
+    )
+`, function (error) {
+    if (error) throw error;
+    console.log(`${name} table created`);
+    
+  });
+
+
   var query = `INSERT INTO chat.channels (name) VALUES ("${name}")`;
   connection.query(query, function (error,result) {
       if (error) console.log(error);
