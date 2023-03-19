@@ -115,7 +115,8 @@ app.get('/getChannels', (req, res) => {
   connection.query(sqlQuery, function (error,result) {
       if (error) console.log(error);
       //res.json(result);
-      res.send({ 'channels': result});
+      //res.send({ 'channels': result});
+      res.send(result);
       console.log(JSON.stringify(result));
   });
 });

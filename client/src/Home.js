@@ -5,6 +5,7 @@ import {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import useFetch from './useFetch';
 import { useNavigate } from 'react-router-dom';
+import AllChannels from './AllChannels';
 
 
 const Home = () => {
@@ -15,6 +16,8 @@ const Home = () => {
     const [user, setUser] = useState( null );
     const [isPeding, setIsPeding] = useState( true );
     const [newChannel, setNewChannel] = useState("");
+    const [allChannels, setAllChannels] = useState( null );
+    const [channelPending, setChannelPending] = useState( true );
 
 
     useEffect(() => {
@@ -28,6 +31,7 @@ const Home = () => {
         };
         fetchUser();
       }, []);
+
 
 
       const handleSubmit = (e) => {
@@ -58,6 +62,7 @@ const Home = () => {
 
             {isPeding && <div> Loading..... </div>}
             {/* {error && <div> {error} </div>} */}
+
 
             {user && (
                 <div>
@@ -92,10 +97,17 @@ const Home = () => {
                     </form>
 
 
+
+
                     {/* <button onClick={handleClick}> Delete Blog </button> */}
-                </div>
-                
+                </div> 
             )}
+
+
+            {user && (
+                <AllChannels user={user}/>
+            )}
+
 
         </div>
     );
