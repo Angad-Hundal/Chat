@@ -1,5 +1,3 @@
-
-
 import {Link} from 'react-router-dom';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Routes, Route } from 'react-router-dom';
@@ -16,6 +14,7 @@ const Home = () => {
 
     const [user, setUser] = useState( null );
     const [isPeding, setIsPeding] = useState( true );
+    const [newChannel, setNewChannel] = useState("");
 
 
     useEffect(() => {
@@ -31,6 +30,23 @@ const Home = () => {
       }, []);
 
 
+      const handleSubmit = (e) => {
+
+        console.log("NEW Channel: ", newChannel);
+
+        e.preventDefault();
+        //const channel = {title, body, author};
+
+        //setIsPending('true');
+
+        fetch('http://localhost:8080/addChannel', {
+            method: 'POST', 
+            body: `newChannel=${newChannel}`,
+            headers: {'Content-type': 'application/x-www-form-urlencoded'}})
+            .then(alert("NEW CHANNEL ADDED"));
+    }
+
+
 
     const navigate = useNavigate();
 
@@ -42,8 +58,11 @@ const Home = () => {
 
             {isPeding && <div> Loading..... </div>}
             {/* {error && <div> {error} </div>} */}
+
             {user && (
                 <div>
+
+                    {/* USE IT FOR VAVIGATION BAR */}
                 
                     <label> Name: </label>
                     <h3> {user.name} </h3>
@@ -53,6 +72,24 @@ const Home = () => {
 
                     <label> User Id:  </label>
                     <h3> {user.userId} </h3>
+
+
+                    
+                    <form onSubmit = {handleSubmit}> 
+
+                        <h3> Create a new Channel </h3>
+                        <label> Channel Name: </label>
+                        
+                        <input 
+                            type="text"
+                            required
+                            value={newChannel}
+                            onChange = { (e) => setNewChannel(e.target.value) }
+                        />
+
+                        <button type="submit"> Create </button>
+
+                    </form>
 
 
                     {/* <button onClick={handleClick}> Delete Blog </button> */}

@@ -69,12 +69,55 @@ connection.query(`
     if (error) throw error;
     console.log('Users table created');
     
-    // // close the connection
-    // connection.end(function (error) {
-    // if (error) throw error;
-    // console.log('Connection closed');
-    // });
 });
+
+
+
+
+// table including all the channels
+connection.query(`
+    CREATE TABLE IF NOT EXISTS channels (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+    )
+`, function (error) {
+    if (error) throw error;
+    console.log('Channels table created');
+    
+});
+
+
+});
+
+
+
+// add a channel to channel table
+app.post('/addChannel', (req,res) => {
+
+  console.log("Reached Add Channel")
+  var name = req.body.newChannel;
+  console.log("NAME: ", name);
+
+  var query = `INSERT INTO chat.channels (name) VALUES ("${name}")`;
+  connection.query(query, function (error,result) {
+      if (error) console.log(error);
+      res.send('New Channel Added');
+  });
+});
+
+
+
+// get all posts from table
+app.get('/getChannels', (req, res) => {
+
+  console.log("GETTING CHANNELS")
+  const sqlQuery = 'SELECT * FROM chat.channels';
+  connection.query(sqlQuery, function (error,result) {
+      if (error) console.log(error);
+      //res.json(result);
+      res.send({ 'channels': result});
+      console.log(JSON.stringify(result));
+  });
 });
 
 
