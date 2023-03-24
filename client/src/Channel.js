@@ -28,21 +28,28 @@ function Channel() {
       console.log("Messages: ", data);
       console.log("Messages IS PENDING: ", messagePending);
     };
-    fetchChannels();
+    //fetchChannels();
+
+    const intervalId = setInterval(fetchChannels, 1000); // call fetchChannels every 5 seconds
+
+    // cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+
+
   }, []);
 
 
   const addMessage = async (e) => {
     e.preventDefault();
     try {
-        const userResponse = await fetch(`http://localhost:8080/geIdtUser/${userId}`);
+        const userResponse = await fetch(`http://localhost:8080/getIdUser/${userId}`);
         const userData = await userResponse.json();
         console.log("User Data: ", userData);
 
         const messageObject = {
             message: message,
-            userID: userId,
-            userName: userData.userName,
+            userID: userData.id,
+            userName: userData.name,
         };
 
         const messageResponse = await fetch(`http://localhost:8080/postMessage/${ChannelName}`, {
@@ -74,23 +81,27 @@ function Channel() {
         <h3> {userId} </h3>
 
         {messagePending && <div> Loading..... </div>}
-            
+
+
         {allMessages && (
-          
+
           allMessages.map(message => (
+              
 
+              <div key = {message.id}>
 
-            <div> 
+                
+                <h3> {message.userID}</h3>
+                <h3> {message.userName}</h3>
+                <h3> {message.message} </h3>
+                <h3> ........... </h3>
 
-              <h3> message.message </h3>
-              <h3> message.userID </h3>
-              <h3> message.userName </h3>
-            
-            </div>
-                          
+              
 
-            ))
-        )}
+              </div>
+
+          ))
+      )}
 
 
         <div>
@@ -105,7 +116,7 @@ function Channel() {
             value={message}
             onChange = { (e) => setMessage(e.target.value) }
         />
-
+        <button type="submit"> Send </button>
         </form>
 
         </div>

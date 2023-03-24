@@ -154,6 +154,24 @@ app.post('/addUser', (req,res) => {
 
 
 
+// add a post to posts table
+app.post('/postMessage/:ChannelName', (req,res) => {
+
+  var userID = req.body.userID;
+  console.log("USER ID: ", userID);
+  var message = req.body.message;
+  var userName = req.body.userName;
+  var ChannelName = req.params.ChannelName;
+
+  var query = `INSERT INTO chat.${ChannelName} (message, userID, userName) VALUES ("${message}", "${userID}", "${userName}")`;
+  connection.query(query, function (error,result) {
+      if (error) console.log(error);
+      res.send('New Message Added');
+  });
+});
+
+
+
 
 app.get('/getUser/:userId/:password', (req, res) => {
 
@@ -237,12 +255,13 @@ app.get('/getIdChannel/:name', (req, res) => {
 
     else {
       if (results.length > 0) {
-        res.status(200).json(results[0]);
+        res.status(200).json(results);
         console.log("CHANNEL FOUND");
         //res.status(200).json(results);
         //res.send({ 'users': results});
       } else {
-        res.status(404).send('Channel not found');
+        res.json(null);
+        //res.status(200).send('Channel EMPTY');
         console.log("Channel not found");
       }
     }
