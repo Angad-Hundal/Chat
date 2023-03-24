@@ -217,6 +217,40 @@ app.get('/getIdUser/:id', (req, res) => {
 });
 
 
+
+
+app.get('/getIdChannel/:name', (req, res) => {
+
+  console.log("Reached getIdChannel in server");
+
+  const name = req.params.name;
+  console.log("NAME: ", name);
+
+  const sql = `SELECT * FROM chat.${name}`;
+
+  connection.query(sql, (error, results) => {
+
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error retrieving user');
+    } 
+
+    else {
+      if (results.length > 0) {
+        res.status(200).json(results[0]);
+        console.log("CHANNEL FOUND");
+        //res.status(200).json(results);
+        //res.send({ 'users': results});
+      } else {
+        res.status(404).send('Channel not found');
+        console.log("Channel not found");
+      }
+    }
+  });
+});
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);

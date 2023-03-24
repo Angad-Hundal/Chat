@@ -51,9 +51,9 @@ const AllChannels = ({user}) => {
                         allChannels.map(channel => (
                             
 
-                            <div>
+                            <div key = {channel.id}>
 
-                            <Link to={`/channels/${channel.id}/${user.id}`}>
+                            <Link to={`/channels/${channel.name}/${user.id}`}>
                                 <h3> {channel.name} </h3>
                             </Link>
 

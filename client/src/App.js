@@ -23,7 +23,7 @@ function App() {
       <Routes>
         <Route exact path='/' element = {<Login/>} />
         <Route exact path='/createAccount' element = {<CreateAccount/>} />
-        <Route path='/channels/:ChannelId/:userId' element={<Channel />}  />
+        <Route path='/channels/:ChannelName/:userId' element={<Channel />}  />
         {/* <Route exact path='/home' element = {<Home/>} /> */}
         <Route path='/home/:id' element={<Home/>}  />
         {/* <Route exact path='/showPosts' element = {<ShowPosts/>} />

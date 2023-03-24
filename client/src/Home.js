@@ -67,7 +67,7 @@ const Home = () => {
             {user && (
                 <div>
 
-                    {/* USE IT FOR VAVIGATION BAR */}
+                    {/* LATER USE IT FOR VAVIGATION BAR */}
                 
                     <label> Name: </label>
                     <h3> {user.name} </h3>
