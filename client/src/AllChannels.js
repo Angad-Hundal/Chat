@@ -24,7 +24,12 @@ const AllChannels = ({user}) => {
           console.log("CHANNELS: ", data);
           console.log("CHANNEL IS PENDING: ", channelPending);
         };
-        fetchChannels();
+        //fetchChannels();
+
+        const intervalId = setInterval(fetchChannels, 1000); // call fetchChannels every 5 seconds
+
+    // cleanup function to clear the interval when the component unmounts
+        return () => clearInterval(intervalId);
       }, []);
 
 

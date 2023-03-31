@@ -17,6 +17,7 @@ function Channel() {
   const [allMessages, setAllMessages] = useState( null );
   const [messagePending, setMessagePending] = useState( true );
   const [message, setMessage] = useState( null );
+  const [replies, setReplies] = useState( {} );
 
 
   useEffect(() => {
@@ -37,6 +38,14 @@ function Channel() {
 
 
   }, []);
+
+
+  const fetchReplies = async (messageID) => {
+    const response = await fetch(`http://localhost:8080/reply/${messageID}`);
+    const data = await response.json();
+    setReplies(data);
+  }
+
 
 
   const addMessage = async (e) => {
@@ -69,6 +78,38 @@ function Channel() {
     }
 };
 
+
+    const addReply = async (e, messageId) => {
+
+      e.preventDefault();
+      try {
+        const userResponse = await fetch(`http://localhost:8080/getIdUser/${userId}`);
+        const userData = await userResponse.json();
+        console.log("User Data: ", userData);
+
+        const replyObject = {
+          reply: replies[messageId],
+          userID: userData.id,
+          userName: userData.name,
+        };
+
+        const replyResponse = await fetch(`http://localhost:8080/postReply/${messageId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(replyObject)
+        });
+
+        const replyData = await replyResponse.json();
+        console.log("Reply Data: ", replyData);
+
+        setReplies({...replies, [messageId]: ""});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   
 
   return (
@@ -95,6 +136,30 @@ function Channel() {
                 <h3> {message.userName}</h3>
                 <h3> {message.message} </h3>
                 <h3> ........... </h3>
+
+
+                {message.replies && (
+                  <div>
+                    {message.replies.map(reply => (
+                      <div key={reply.id}>
+                        <p>Reply from {reply.userName}: {reply.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+
+
+                  <form onSubmit={(e) => addReply(e, message.id)}>
+                  <label>Type your reply: </label>
+                  <input
+                    type="text"
+                    required
+                    value={reply}
+                    onChange={(e) => setReply(e.target.value)}
+                  />
+                  <button type="submit">Send</button>
+                  </form>
 
               
 

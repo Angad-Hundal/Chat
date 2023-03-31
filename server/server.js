@@ -104,7 +104,8 @@ app.post('/addChannel', (req,res) => {
     id INT AUTO_INCREMENT PRIMARY KEY,
     message VARCHAR(255) NOT NULL,
     userID VARCHAR(255) NOT NULL,
-    userName VARCHAR(255) NOT NULL 
+    userName VARCHAR(255) NOT NULL,
+    parentID VARCHAR(255) NULL
     )
 `, function (error) {
     if (error) throw error;

@@ -69,12 +69,6 @@ const Login = () => {
                 
                 <Link to="/createAccount"><button> Create an account </button></Link>
 
-                {/* various links to navigate */}
-
-                {/* <Link to="/"> Home </Link> */}
-                {/* <Link to="/addPosts" > Add Posts </Link>
-                <Link to="/showPosts" > Show Posts </Link> */}
-
             </div>
         </div>
     );
