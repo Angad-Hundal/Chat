@@ -17,8 +17,11 @@ function Channel() {
   const [allMessages, setAllMessages] = useState( null );
   const [messagePending, setMessagePending] = useState( true );
   const [message, setMessage] = useState( null );
-  const [replies, setReplies] = useState( {} );
+  const [replies, setReplies] = useState( {} );   // change name
 
+  const [reply, setReply] = useState( null );
+  const [replyParentId, setReplyParentId] = useState( null );
+ 
 
   useEffect(() => {
     const fetchChannels = async () => {
@@ -88,12 +91,14 @@ function Channel() {
         console.log("User Data: ", userData);
 
         const replyObject = {
-          reply: replies[messageId],
+          //reply: replies[messageId],
+          parentID: replyParentId,
           userID: userData.id,
           userName: userData.name,
+          replyMessage: reply
         };
 
-        const replyResponse = await fetch(`http://localhost:8080/postReply/${messageId}`, {
+        const replyResponse = await fetch(`http://localhost:8080/postReply/${ChannelName}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -102,9 +107,9 @@ function Channel() {
         });
 
         const replyData = await replyResponse.json();
-        console.log("Reply Data: ", replyData);
+        console.log("Reply Posted: ", reply);
 
-        setReplies({...replies, [messageId]: ""});
+        //setReplies({...replies, [messageId]: ""});
       } catch (error) {
         console.log(error);
       }
@@ -135,10 +140,29 @@ function Channel() {
                 <h3> {message.userID}</h3>
                 <h3> {message.userName}</h3>
                 <h3> {message.message} </h3>
+                {message.replied && (
+                  <div>
+                    <h3> This message was replied </h3>
+                  </div>
+                )}
+
+                <form onSubmit={addReply} >
+
+                <label>Type your Reply: </label>
+                <input 
+                    type="text"
+                    required
+                    value={reply}
+                    onChange = { (e) => {setReply(e.target.value);
+                                        setReplyParentId(message.id)} }
+                />
+                <button type="submit"> Send Reply </button>
+                </form>
+                
                 <h3> ........... </h3>
 
 
-                {message.replies && (
+                {/* {message.replies && (
                   <div>
                     {message.replies.map(reply => (
                       <div key={reply.id}>
@@ -146,11 +170,11 @@ function Channel() {
                       </div>
                     ))}
                   </div>
-                )}
+                )} */}
 
 
 
-                  <form onSubmit={(e) => addReply(e, message.id)}>
+                  {/* <form onSubmit={(e) => addReply(e, message.id)}>
                   <label>Type your reply: </label>
                   <input
                     type="text"
@@ -159,7 +183,7 @@ function Channel() {
                     onChange={(e) => setReply(e.target.value)}
                   />
                   <button type="submit">Send</button>
-                  </form>
+                  </form> */}
 
               
 

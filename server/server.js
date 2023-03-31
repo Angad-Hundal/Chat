@@ -105,7 +105,8 @@ app.post('/addChannel', (req,res) => {
     message VARCHAR(255) NOT NULL,
     userID VARCHAR(255) NOT NULL,
     userName VARCHAR(255) NOT NULL,
-    parentID VARCHAR(255) NULL
+    parentID VARCHAR(255) NULL,
+    replied VARCHAR(255) NULL
     )
 `, function (error) {
     if (error) throw error;
@@ -170,6 +171,37 @@ app.post('/postMessage/:ChannelName', (req,res) => {
       res.send('New Message Added');
   });
 });
+
+
+
+
+// add a post to posts table
+app.post('/postReply/:ChannelName', (req,res) => {
+
+  console.log("REACHING POST REPLY..............");
+  var userID = req.body.userID;
+  console.log("USER ID: ", userID);
+  var message = req.body.replyMessage;
+  var userName = req.body.userName;
+  var parentID = req.body.parentID;
+  var ChannelName = req.params.ChannelName;
+
+
+  var query1 = `INSERT INTO chat.${ChannelName} (message, userID, userName, parentID) VALUES ("${message}", "${userID}", "${userName}", ${parentID})`;
+  connection.query(query1, function (error, result) {
+    if (error) console.log(error);
+
+    var query2 = `UPDATE chat.${ChannelName} SET replied = TRUE WHERE id = ${parentID}`;
+    connection.query(query2, function (error, result) {
+      if (error) console.log(error);
+      res.send('New Message Added');
+    });
+  });
+
+
+});
+
+
 
 
 
