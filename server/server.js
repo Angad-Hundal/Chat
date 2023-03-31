@@ -277,7 +277,7 @@ app.get('/getIdChannel/:name', (req, res) => {
   const name = req.params.name;
   console.log("NAME: ", name);
 
-  const sql = `SELECT * FROM chat.${name}`;
+  const sql = `SELECT * FROM chat.${name} WHERE parentID is NULL`;
 
   connection.query(sql, (error, results) => {
 
@@ -300,6 +300,39 @@ app.get('/getIdChannel/:name', (req, res) => {
     }
   });
 });
+
+
+
+
+app.get('/getAllReplies/:name', (req, res) => {
+
+  console.log("Reached getIdChannel in server");
+
+  const name = req.params.name;
+  console.log("NAME: ", name);
+
+  const sql = `SELECT * FROM chat.${name} WHERE parentID is not NULL`;
+
+  connection.query(sql, (error, results) => {
+
+    if (error) {
+      console.error(error);
+      res.status(500).send('Error retrieving user');
+    } 
+
+    else {
+      if (results.length > 0) {
+        console.log("Replies: ", results);
+        res.status(200).json(results);
+        console.log("REPLY FOUND");
+      } else {
+        res.json(null);
+        console.log("Replies not found");
+      }
+    }
+  });
+});
+
 
 
 

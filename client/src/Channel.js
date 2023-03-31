@@ -17,7 +17,8 @@ function Channel() {
   const [allMessages, setAllMessages] = useState( null );
   const [messagePending, setMessagePending] = useState( true );
   const [message, setMessage] = useState( null );
-  const [replies, setReplies] = useState( {} );   // change name
+  const [allReplies, setAllReplies] = useState( null );
+  const [repliesPending, setRepliesPending] = useState( true );
 
   const [reply, setReply] = useState( null );
   const [replyParentId, setReplyParentId] = useState( null );
@@ -43,11 +44,35 @@ function Channel() {
   }, []);
 
 
-  const fetchReplies = async (messageID) => {
-    const response = await fetch(`http://localhost:8080/reply/${messageID}`);
-    const data = await response.json();
-    setReplies(data);
-  }
+
+
+  useEffect(() => {
+    const fetchReplies = async () => {
+      const response = await fetch(`http://localhost:8080/getAllReplies/${ChannelName}`);
+      const data = await response.json();
+      setAllReplies(data);
+      setRepliesPending(false);
+      console.log("Replies: ", allReplies);
+      console.log("Replies IS PENDING: ", repliesPending);
+    };
+    //fetchReplies();
+
+    const intervalId_replies = setInterval(fetchReplies, 1000); // call fetchChannels every 5 seconds
+
+    // cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId_replies);
+
+
+  }, []);
+
+
+
+
+  // const fetchReplies = async (messageID) => {
+  //   const response = await fetch(`http://localhost:8080/reply/${messageID}`);
+  //   const data = await response.json();
+  //   setAllReplies(data);
+  // }
 
 
 
@@ -140,9 +165,38 @@ function Channel() {
                 <h3> {message.userID}</h3>
                 <h3> {message.userName}</h3>
                 <h3> {message.message} </h3>
+                {/* {message.replied && (
+                  <div>
+                    <h3> This message was replied </h3>
+
+                    {allreples && allReplies.map(single_reply => (
+                      
+                      if (message.id === single_reply.parentID) {
+                        <div>
+                          <p>Reply from {single_reply.userName}: {single_reply.replyMessage}</p>
+                        </div>
+                        
+                      }
+                    ))}
+                  </div>
+                )} */}
+
                 {message.replied && (
                   <div>
                     <h3> This message was replied </h3>
+                    {allReplies && allReplies.map(single_reply => (
+
+                      
+                      (parseInt(message.id) === parseInt(single_reply.parentID) )
+                      ? (
+                        <div>
+                          {/* <p> REPLY: </p> */}
+                          <p>Reply from {single_reply.userName}: {single_reply.message}</p>
+                        </div>
+                      ) 
+                      : <p></p>
+
+                    ))}
                   </div>
                 )}
 
