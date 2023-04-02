@@ -6,6 +6,7 @@ import CreateAccount from './CreateAccount';
 import Home from './Home';
 import Channel from './Channel';
 import NotFound from './NotFound';
+import Search from './Search';
 
 
 function App() {
@@ -24,11 +25,13 @@ function App() {
         <Route exact path='/' element = {<Login/>} />
         <Route exact path='/createAccount' element = {<CreateAccount/>} />
         <Route path='/channels/:ChannelName/:userId' element={<Channel />}  />
+        <Route exact path='/search/:userId' element={<Search/>} />
         {/* <Route exact path='/home' element = {<Home/>} /> */}
         <Route path='/home/:id' element={<Home/>}  />
         {/* <Route exact path='/showPosts' element = {<ShowPosts/>} />
         <Route exact path='/addPosts' element = {<AddPosts/>} /> */}
         <Route path="*" element={<NotFound/> } />
+        
       </Routes>
 
      </div>

@@ -8,11 +8,31 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const AllChannels = ({user}) => {
+const Search = () => {
+
+    const { userId } = useParams();
 
 
     const [allChannels, setAllChannels] = useState( null );
     const [channelPending, setChannelPending] = useState( true );
+    const [user, setUser] = useState( null );
+    const [UserIsPeding, setUserIsPeding] = useState( true );
+
+
+
+    useEffect(() => {
+        const fetchUser = async () => {
+          const response = await fetch(`http://localhost:8080/getIdUser/${userId}`);
+          const data = await response.json();
+          setUser(data);
+          setUserIsPeding(false);
+          console.log("DATA: ", data);
+          console.log("IS PENDING: ", UserIsPeding);
+        };
+        fetchUser();
+      }, []);
+
+
 
 
       useEffect(() => {
@@ -35,50 +55,37 @@ const AllChannels = ({user}) => {
 
 
 
+
+
+
+
     const navigate = useNavigate();
 
     return ( 
 
         <div className="home">
 
-            <h1> All Channels:  </h1>
+            <h3> Search Reached </h3>
+
 
             {user && (
                 <div>
 
-                    {/* USE IT FOR VAVIGATION BAR */}
+                    {/* LATER USE IT FOR VAVIGATION BAR */}
                 
+                    <label> Name: </label>
+                    <h3> {user.name} </h3>
 
-                    {channelPending && <div> Loading..... </div>}
+                    <label> Id: </label>
+                    <h3> {user.id} </h3>
 
-                    <Link to={`/search/${user.id}`}>
-                        <button> SEARCH </button>
-                    </Link>
+                    <label> User Id:  </label>
+                    <h3> {user.userId} </h3>
 
-                    {allChannels && (
+                    <Link to = "/"> <button> Log out </button>  </Link>
 
-                        allChannels.map(channel => (
-                            
-
-                            <div key = {channel.id}>
-
-                            <Link to={`/channels/${channel.name}/${user.id}`}>
-                                <h3> {channel.name} </h3>
-                            </Link>
-
-                            
-
-                            </div>
-
-                        ))
-                    )}
-                    
-                    
-
-
-
-                </div>
-                
+            
+                </div> 
             )}
 
         </div>
@@ -87,4 +94,4 @@ const AllChannels = ({user}) => {
 
 }
  
-export default AllChannels;
+export default Search;
