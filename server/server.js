@@ -369,6 +369,21 @@ app.post('/voteDown/:ChannelName/:MessageID', (req,res) => {
 
 
 
+app.get('/search/:searchString', (req, res) => {
+
+  const searchString = req.params.searchString;
+  const sqlQuery = `SELECT message, userID, userName, '${searchString}' AS searchString, '${req.protocol}://${req.get('host')}' AS link FROM (SELECT id, message, userID, userName FROM chat.channels UNION SELECT id, message, userID, userName FROM chat.general) AS messages WHERE message LIKE '%${searchString}%'`;
+  
+  connection.query(sqlQuery, function (error, result) {
+      if (error) console.log(error);
+      res.send(result);
+      console.log(result);
+  });
+});
+
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);

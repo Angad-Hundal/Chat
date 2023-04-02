@@ -18,6 +18,40 @@ const Search = () => {
     const [user, setUser] = useState( null );
     const [UserIsPeding, setUserIsPeding] = useState( true );
 
+    const [searchString, setSearchString] = useState("");
+
+    const [error, setError] = useState("");
+
+
+    const handleSearchString = (event) => {
+        setSearchString(event.target.value);
+    }
+
+
+    // for the dropbox
+    const [selectedOption, setSelectedOption] = useState('');
+
+
+    const handleDropBoxChange = (event) => {
+        setSelectedOption(event.target.value);
+      }
+
+
+    
+      const getStrings = event => {
+        event.preventDefault();
+        fetch(`http://localhost:8080/search/${searchString}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              console.log(data);
+            } else {
+              setError(' NOTHING FOUND ');
+            }
+          })
+          .catch(error => console.error(error));
+      };
+
 
 
     useEffect(() => {
@@ -54,11 +88,6 @@ const Search = () => {
 
 
 
-
-
-
-
-
     const navigate = useNavigate();
 
     return ( 
@@ -87,6 +116,24 @@ const Search = () => {
             
                 </div> 
             )}
+
+
+
+        <select value={selectedOption} onChange={handleDropBoxChange}>
+        <option value=""> Select Options </option>
+        <option value="Search String"> Search String </option>
+        <option value="Specific user content"> Specific User Content </option>
+        <option value="User with most and least posts"> User with most and least posts </option>
+        <option value="Highest ranking of messages"> Highest ranking of messages </option>
+        </select>
+
+        {(selectedOption === 'Search String') && (
+            <div>
+                <label> Search String: </label>
+                <input type="text" value={searchString} onChange={handleSearchString} />
+                <button onClick={getStrings}> Search String </button>
+            </div>
+        )}
 
         </div>
     );
