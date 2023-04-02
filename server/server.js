@@ -106,7 +106,9 @@ app.post('/addChannel', (req,res) => {
     userID VARCHAR(255) NOT NULL,
     userName VARCHAR(255) NOT NULL,
     parentID VARCHAR(255) NULL,
-    replied VARCHAR(255) NULL
+    replied VARCHAR(255) NULL,
+    thumUp Int Default 0,
+    thumDown Int Default 0
     )
 `, function (error) {
     if (error) throw error;
@@ -330,6 +332,37 @@ app.get('/getAllReplies/:name', (req, res) => {
         console.log("Replies not found");
       }
     }
+  });
+});
+
+
+
+// add a vote to the thumbUp column of a message in a channel
+app.post('/voteUp/:ChannelName/:MessageID', (req,res) => {
+
+  const { ChannelName, MessageID } = req.params;
+
+  const query = `UPDATE chat.${ChannelName} SET thumUp = thumUp + 1 WHERE id = ${MessageID}`;
+
+  connection.query(query, (error, result) => {
+    if (error) console.log(error);
+    res.send('Vote added to thumbUp column');
+  });
+});
+
+
+
+
+// add a vote to the thumbUp column of a message in a channel
+app.post('/voteDown/:ChannelName/:MessageID', (req,res) => {
+
+  const { ChannelName, MessageID } = req.params;
+
+  const query = `UPDATE chat.${ChannelName} SET thumDown = thumDown + 1 WHERE id = ${MessageID}`;
+
+  connection.query(query, (error, result) => {
+    if (error) console.log(error);
+    res.send('Vote added to thumbUp column');
   });
 });
 

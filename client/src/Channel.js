@@ -68,13 +68,51 @@ function Channel() {
 
 
 
-  // const fetchReplies = async (messageID) => {
-  //   const response = await fetch(`http://localhost:8080/reply/${messageID}`);
-  //   const data = await response.json();
-  //   setAllReplies(data);
-  // }
+  const VoteUp = async (messageId) => {
+    try {
+      // Make a POST request to the server to increment the message's upvote count
+      const response = await fetch(`http://localhost:8080/voteUp/${ChannelName}/${messageId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // If the request is successful, update the message's upvote count
+      if (response.ok) {
+
+        console.log("UPVOTED SUCCESSFULLY");
+      }
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  };
 
 
+
+
+  const VoteDown = async (messageId) => {
+    try {
+      // Make a POST request to the server to increment the message's upvote count
+      const response = await fetch(`http://localhost:8080/voteDown/${ChannelName}/${messageId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // If the request is successful, update the message's upvote count
+      if (response.ok) {
+        console.log("UPVOTED SUCCESSFULLY");
+      }
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  
 
   const addMessage = async (e) => {
     e.preventDefault();
@@ -165,21 +203,13 @@ function Channel() {
                 <h3> {message.userID}</h3>
                 <h3> {message.userName}</h3>
                 <h3> {message.message} </h3>
-                {/* {message.replied && (
-                  <div>
-                    <h3> This message was replied </h3>
+                <h3> {message.thumUp} </h3>
+                <h3> {message.thumDown} </h3>
 
-                    {allreples && allReplies.map(single_reply => (
-                      
-                      if (message.id === single_reply.parentID) {
-                        <div>
-                          <p>Reply from {single_reply.userName}: {single_reply.replyMessage}</p>
-                        </div>
-                        
-                      }
-                    ))}
-                  </div>
-                )} */}
+
+                <button onClick={ () => VoteUp(message.id) }> Thumbs up </button>
+                <button onClick={ () => VoteDown(message.id) }> Thumbs Down </button>
+                
 
                 {message.replied && (
                   <div>
@@ -192,6 +222,10 @@ function Channel() {
                         <div>
                           {/* <p> REPLY: </p> */}
                           <p>Reply from {single_reply.userName}: {single_reply.message}</p>
+                          <p> {single_reply.thumUp} </p>
+                          <p> {single_reply.thumDown} </p>
+                          <button onClick={ () => VoteUp(single_reply.id) }> Thumbs up </button>
+                          <button onClick={ () => VoteDown(single_reply.id) }> Thumbs Down </button>
                         </div>
                       ) 
                       : <p></p>
@@ -214,30 +248,7 @@ function Channel() {
                 </form>
                 
                 <h3> ........... </h3>
-
-
-                {/* {message.replies && (
-                  <div>
-                    {message.replies.map(reply => (
-                      <div key={reply.id}>
-                        <p>Reply from {reply.userName}: {reply.message}</p>
-                      </div>
-                    ))}
-                  </div>
-                )} */}
-
-
-
-                  {/* <form onSubmit={(e) => addReply(e, message.id)}>
-                  <label>Type your reply: </label>
-                  <input
-                    type="text"
-                    required
-                    value={reply}
-                    onChange={(e) => setReply(e.target.value)}
-                  />
-                  <button type="submit">Send</button>
-                  </form> */}
+                  
 
               
 
