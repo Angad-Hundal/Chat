@@ -32,6 +32,23 @@ const AllChannels = ({user}) => {
         return () => clearInterval(intervalId);
       }, []);
 
+    
+      const deleteChannel = async (channelName) => {
+        try {
+            const response = await fetch(`http://localhost:8080/deleteChannel/${channelName}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(`Deleted channel ${data.name}`);
+                //setAllChannels(allChannels.filter(channel => channel.id !== channelId));
+            } else {
+                console.log(`Failed to delete channel ${channelName}`);
+            }
+        } catch (error) {
+            console.error(`Failed to delete channel ${channelName}:`, error);
+        }
+    };
 
 
 
@@ -65,6 +82,10 @@ const AllChannels = ({user}) => {
                             <Link to={`/channels/${channel.name}/${user.id}`}>
                                 <h3> {channel.name} </h3>
                             </Link>
+
+                            {user.id === 1 && (
+                                <button onClick={ () => deleteChannel(channel.name)}> DELETE CHANNEL </button>
+                            )}
 
                             
 

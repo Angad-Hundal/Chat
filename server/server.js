@@ -469,6 +469,31 @@ app.get('/orderByThumbsUp/:channelName', (req, res) => {
 
 
 
+
+
+app.delete('/deleteChannel/:channelName', (req, res) => {
+  const channelName = req.params.channelName;
+
+  // delete channel from channels table
+  const deleteChannelQuery = `DELETE FROM channels WHERE name="${channelName}"`;
+  connection.query(deleteChannelQuery, function (error, result) {
+    if (error) throw error;
+    console.log(`Deleted ${channelName} from channels`);
+  });
+
+  // delete table for the channel
+  const dropTableQuery = `DROP TABLE IF EXISTS ${channelName}`;
+  connection.query(dropTableQuery, function (error, result) {
+    if (error) throw error;
+    console.log(`Deleted ${channelName} table`);
+  });
+
+  res.send(`Deleted ${channelName}`);
+});
+
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);
