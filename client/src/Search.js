@@ -83,6 +83,38 @@ const Search = () => {
       };
 
 
+      const getUsersMostPost = event => {
+        event.preventDefault();
+        fetch(`http://localhost:8080/rankUsersByMessages/${searchChannel}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              console.log(data);
+              setResult(data);
+            } else {
+              setError(' NOTHING FOUND ');
+            }
+          })
+          .catch(error => console.error(error));
+      };
+
+
+
+      const getLikedMostPost = event => {
+        event.preventDefault();
+        fetch(`http://localhost:8080/orderByThumbsUp/${searchChannel}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              console.log(data);
+              setResult(data);
+            } else {
+              setError(' NOTHING FOUND ');
+            }
+          })
+          .catch(error => console.error(error));
+      };
+
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -153,8 +185,8 @@ const Search = () => {
         <option value=""> Select Options </option>
         <option value="Search String"> Search String </option>
         <option value="Specific user content"> Specific User Content </option>
-        <option value="User with most and least posts"> User with most and least posts </option>
-        <option value="Highest ranking of messages"> Highest ranking of messages </option>
+        <option value="Rank Users on basic of number of posts (Highest to lowest)"> Rank Users on basic of number of posts </option>
+        <option value="Rank Messages by number of likes (Highest to Lowest)"> Highest ranking of messages </option>
         </select>
 
 
@@ -181,16 +213,50 @@ const Search = () => {
         )}
 
 
+
+      {(selectedOption === 'Rank Users on basic of number of posts (Highest to lowest)') && (
+            <div>
+                <label> Search Channel: </label>
+                <input type="text" value={searchChannel} onChange={handleSearchChannel} />
+                <button onClick={getUsersMostPost}> Rank Users </button>
+            </div>
+        )}
+
+
+
+      {(selectedOption === 'Rank Messages by number of likes (Highest to Lowest)') && (
+            <div>
+                <label> Search Channel: </label>
+                <input type="text" value={searchChannel} onChange={handleSearchChannel} />
+                <button onClick={getLikedMostPost}> Rank Users </button>
+            </div>
+        )}
+
+
         {result && (
 
             result.map(message =>
           <div>
 
-                <h3> User ID: {message.userID}</h3>
-                <h3> User Name: {message.userName}</h3>
-                <h3> Message: {message.message} </h3>
-                <h3> Thumbs up: {message.thumUp} </h3>
-                <h3> Thumbs down: {message.thumDown} </h3>
+                { message.userID && (
+                  <h3> USER ID: {message.userID} </h3>
+                )}
+
+                { message.userName && (
+                  <h3> USER NAME: {message.userName} </h3>
+                )}
+
+                { message.message && (
+                  <h3> Message: {message.message} </h3>
+                )}
+                
+                { message.thumUp && (
+                  <h3> Thumb Ups: {message.thumUp} </h3>
+                )}
+
+                { message.thumDown && (
+                  <h3> Thumb Downs: {message.thumDown} </h3>
+                )}
                 <h3> ...................................................................... </h3>
 
 

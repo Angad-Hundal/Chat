@@ -397,6 +397,41 @@ app.get('/getUserContent/:userName/:channelName', (req, res) => {
 
 
 
+app.get('/rankUsersByMessages/:channelName', (req, res) => {
+
+  const channelName = req.params.channelName;
+
+  const sqlQuery = `
+    SELECT userName, COUNT(*) as numMessages
+    FROM chat.${channelName}
+    GROUP BY userName
+    ORDER BY numMessages DESC
+  `;
+  connection.query(sqlQuery, function (error, result) {
+    if (error) console.log(error);
+    res.send(result);
+  });
+});
+
+
+
+app.get('/orderByThumbsUp/:channelName', (req, res) => {
+
+  const channelName = req.params.channelName;
+
+  const sqlQuery = `
+    SELECT *
+    FROM chat.${channelName}
+    ORDER BY thumUp DESC
+  `;
+  connection.query(sqlQuery, function (error, result) {
+    if (error) console.log(error);
+    res.send(result);
+  });
+});
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);
