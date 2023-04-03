@@ -383,6 +383,20 @@ app.get('/getChannelMessages/:searchString/:channelName', (req, res) => {
 
 
 
+app.get('/getUserContent/:userName/:channelName', (req, res) => {
+
+  const channelName = req.params.channelName;
+  const userName = req.params.userName;
+
+  const sqlQuery = `SELECT * FROM chat.${channelName} WHERE userName = '${userName}'`;
+  connection.query(sqlQuery, function (error, result) {
+    if (error) console.log(error);
+    res.send(result);
+  });
+});
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);

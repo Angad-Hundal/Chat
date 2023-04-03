@@ -23,6 +23,9 @@ const Search = () => {
     const [result, setResult] = useState(null);
 
 
+    const [searchUser, setSearchUser] = useState("");
+
+
     const handleSearchString = (event) => {
         setSearchString(event.target.value);
     }
@@ -30,6 +33,11 @@ const Search = () => {
     const handleSearchChannel = (event) => {
       setSearchChannel(event.target.value);
   }
+
+
+  const handleSearchUser = (event) => {
+    setSearchUser(event.target.value);
+}
 
 
     // for the dropbox
@@ -45,6 +53,23 @@ const Search = () => {
       const getStrings = event => {
         event.preventDefault();
         fetch(`http://localhost:8080/getChannelMessages/${searchString}/${searchChannel}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data) {
+              console.log(data);
+              setResult(data);
+            } else {
+              setError(' NOTHING FOUND ');
+            }
+          })
+          .catch(error => console.error(error));
+      };
+
+
+
+      const getUserContent = event => {
+        event.preventDefault();
+        fetch(`http://localhost:8080/getUserContent/${searchUser}/${searchChannel}`)
           .then(response => response.json())
           .then(data => {
             if (data) {
@@ -144,16 +169,29 @@ const Search = () => {
         )}
 
 
+
+      {(selectedOption === 'Specific user content') && (
+            <div>
+                <label> Search User Name: </label>
+                <input type="text" value={searchUser} onChange={handleSearchUser} />
+                <label> Search Channel: </label>
+                <input type="text" value={searchChannel} onChange={handleSearchChannel} />
+                <button onClick={getUserContent}> Search String </button>
+            </div>
+        )}
+
+
         {result && (
 
             result.map(message =>
           <div>
 
-                <h3> {message.userID}</h3>
-                <h3> {message.userName}</h3>
-                <h3> {message.message} </h3>
-                <h3> {message.thumUp} </h3>
-                <h3> {message.thumDown} </h3>
+                <h3> User ID: {message.userID}</h3>
+                <h3> User Name: {message.userName}</h3>
+                <h3> Message: {message.message} </h3>
+                <h3> Thumbs up: {message.thumUp} </h3>
+                <h3> Thumbs down: {message.thumDown} </h3>
+                <h3> ...................................................................... </h3>
 
 
           </div>)
