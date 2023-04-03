@@ -369,18 +369,17 @@ app.post('/voteDown/:ChannelName/:MessageID', (req,res) => {
 
 
 
-app.get('/search/:searchString', (req, res) => {
+app.get('/getChannelMessages/:searchString/:channelName', (req, res) => {
 
+  const channelName = req.params.channelName;
   const searchString = req.params.searchString;
-  const sqlQuery = `SELECT message, userID, userName, '${searchString}' AS searchString, '${req.protocol}://${req.get('host')}' AS link FROM (SELECT id, message, userID, userName FROM chat.channels UNION SELECT id, message, userID, userName FROM chat.general) AS messages WHERE message LIKE '%${searchString}%'`;
-  
+
+  const sqlQuery = `SELECT * FROM chat.${channelName} WHERE message LIKE '%${searchString}%'`;
   connection.query(sqlQuery, function (error, result) {
-      if (error) console.log(error);
-      res.send(result);
-      console.log(result);
+    if (error) console.log(error);
+    res.send(result);
   });
 });
-
 
 
 
