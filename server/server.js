@@ -57,6 +57,23 @@ if (error) throw error;
 console.log('Using database chat');
 
 
+// // create the users table if it does not exist
+// connection.query(`
+//     CREATE TABLE IF NOT EXISTS users (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     userId VARCHAR(255) NOT NULL,
+//     password VARCHAR(255) NOT NULL,
+//     name VARCHAR(255) NOT NULL
+//     )
+// `, function (error) {
+//     if (error) throw error;
+//     console.log('Users table created');
+    
+// });
+
+
+
+
 // create the users table if it does not exist
 connection.query(`
     CREATE TABLE IF NOT EXISTS users (
@@ -68,8 +85,28 @@ connection.query(`
 `, function (error) {
     if (error) throw error;
     console.log('Users table created');
-    
+
+    // Check if the users table already contains records
+    const sqlSelect = `SELECT COUNT(*) as count FROM users`;
+    connection.query(sqlSelect, function (error, result) {
+        if (error) throw error;
+        const count = result[0].count;
+        
+        // If the table is empty, insert the first hardcoded value
+        if (count === 0) {
+            const sqlInsert = `
+                INSERT INTO users (id, userId, password, name)
+                VALUES (1, '1', 'password', 'admin')
+            `;
+            connection.query(sqlInsert, function (error, result) {
+                if (error) throw error;
+                console.log('Admin inserted');
+            });
+        }
+    });
 });
+
+
 
 
 
