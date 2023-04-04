@@ -511,6 +511,24 @@ app.delete('/deleteReply/:messageId/:channelName', (req, res) => {
 
 
 
+
+app.delete('/deleteMessage/:messageId/:channelName', (req, res) => {
+
+  const messageId = req.params.messageId;
+  const channelName = req.params.channelName;
+
+  const sqlQuery = `DELETE FROM chat.${channelName} WHERE id = ${messageId} OR parentId = ${messageId}`;
+
+  connection.query(sqlQuery, (error, result) => {
+    if (error) throw error;
+    console.log(`Deleted rows with id ${messageId}`);
+    res.send(`Deleted rows with id ${messageId}`);
+  });
+});
+
+
+
+
  //serves the static files in the public folder
  app.use('/', express.static('public'));
  app.listen(PORT, HOST);

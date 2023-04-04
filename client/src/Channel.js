@@ -133,6 +133,25 @@ function Channel() {
 
 
 
+const deleteMessage = async (messageID) => {
+  try {
+      const response = await fetch(`http://localhost:8080/deleteMessage/${messageID}/${ChannelName}`, {
+          method: 'DELETE',
+      });
+      if (response.ok) {
+          const data = await response.json();
+          console.log(`Deleted REPLY}`);
+          //setAllChannels(allChannels.filter(channel => channel.id !== channelId));
+      } else {
+          console.log(`Failed to delete Reply`);
+      }
+  } catch (error) {
+      console.error(`Failed to delete reply:`, error);
+  }
+};
+
+
+
   
 
   const addMessage = async (e) => {
@@ -230,6 +249,10 @@ function Channel() {
 
                 <button onClick={ () => VoteUp(message.id) }> Thumbs up </button>
                 <button onClick={ () => VoteDown(message.id) }> Thumbs Down </button>
+
+                {parseInt(userId) === 1 && (
+                                <button onClick={ () => deleteMessage(message.id)}> DELETE MESSAGE </button>
+                            )}
                 
 
                 {message.replied && (
@@ -273,7 +296,7 @@ function Channel() {
                 <button type="submit"> Send Reply </button>
                 </form>
                 
-                <h3> ........... </h3>
+                <h3> .................................................................. </h3>
                   
 
               
