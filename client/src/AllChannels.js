@@ -56,20 +56,20 @@ const AllChannels = ({user}) => {
 
     return ( 
 
-        <div className="home">
+        <div className="allChannels">
 
-            <h1> All Channels:  </h1>
+            <h1 className='allChannelsHeading'> All Channels:  </h1>
 
             {user && (
-                <div>
+                <div className='allChannelsForm' >
 
                     {/* USE IT FOR VAVIGATION BAR */}
                 
 
-                    {channelPending && <div> Loading..... </div>}
+                    {channelPending && <div className='loading'> Loading..... </div>}
 
                     <Link to={`/search/${user.id}`}>
-                        <button> SEARCH </button>
+                        <button className='search'> SEARCH </button>
                     </Link>
 
                     {allChannels && (
@@ -77,14 +77,15 @@ const AllChannels = ({user}) => {
                         allChannels.map(channel => (
                             
 
-                            <div key = {channel.id}>
+                                
+                            <div key = {channel.id} className='channelName'>
 
                             <Link to={`/channels/${channel.name}/${user.id}`}>
-                                <h3> {channel.name} </h3>
+                                <h3 className='channelHeading2' > {channel.name} </h3>
                             </Link>
 
                             {user.id === 1 && (
-                                <button onClick={ () => deleteChannel(channel.name)}> DELETE CHANNEL </button>
+                                <button onClick={ () => deleteChannel(channel.name)} className='deleteChannel'> DELETE CHANNEL </button>
                             )}
 
                             

@@ -1,0 +1,481 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('chatimage.jpg');
+    background-size: cover;
+  }
+  
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 450px;
+    height: 400px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .loginLabel {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .loginInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .loginButton {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .loginButton:hover {
+    background-color: #3e8e41;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .newAccount {
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #2196f3;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .newAccount:hover {
+    background-color: #0d8bf2;
+    font-family: 'Poppins', sans-serif;
+  }
+
+
+
+
+
+
+/* Home */
+
+
+  .home {
+
+    max-width: 800px;
+    margin: auto;
+    font-family: 'Poppins', sans-serif;
+    
+  }
+  
+  .loading {
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .homeform {
+    
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .navbarHeading {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .logOut {
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .logOut:hover {
+    background-color: #ddd;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .newChannelForm {
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+  }
+  
+  .channelHeading {
+    margin-top: 0;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+  }
+  
+  .channelLabel {
+    display: block;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+  }
+  
+  .channelInput {
+    width: 75%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    margin-right: 30px;
+  }
+  
+  .channelButton {
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .channelButton:hover {
+    background-color: #3e8e41;
+  }
+
+
+
+
+
+/* All Channels */
+
+
+.allChannels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+    max-width: 800px;
+  }
+  
+  .allChannelsHeading {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .allChannelsForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .channelName {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #4CAF50;
+    border-radius: 15px;
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+    height: 60px;
+    font-family: 'Poppins', sans-serif;
+    margin: 20px
+  }
+  
+
+
+  .channelHeading2 {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    align-items: center;
+    color: #333;
+    text-align: center;
+    margin-left: 220px;
+  }
+
+
+  
+  .deleteChannel {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .deleteChannel:hover {
+    background-color: #d32f2f;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .loading {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .search {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  .search:hover {
+    background-color: #3e8e41;
+  }
+
+
+
+
+
+/* CHANNEL */
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+  }
+
+
+.channel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+
+  .messageForm {
+    max-width: 800px;
+    margin: auto;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .channel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  
+  .channel-header h1 {
+    font-size: 2rem;
+  }
+  
+  .channel-header a {
+    font-size: 1.5rem;
+  }
+  
+  .messages-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .message h3 {
+    font-size: 1.5rem;
+  }
+  
+  .message p {
+    margin-top: 1rem;
+  }
+  
+  .message-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .message-actions button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgray;
+    cursor: pointer;
+  }
+  
+  .message-actions button:hover {
+    background-color: gray;
+    color: white;
+  }
+  
+  .replies-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .reply {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .reply h4 {
+    font-size: 1.2rem;
+  }
+  
+  .reply p {
+    margin-top: 1rem;
+  }
+  
+  .reply-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  .reply-actions button {
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgray;
+    cursor: pointer;
+  }
+  
+  .reply-actions button:hover {
+    background-color: gray;
+    color: white;
+  }
+  
+  .add-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  
+  .add-message-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .add-message-form label {
+    font-size: 1.2rem;
+  }
+  
+  .add-message-form input {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .add-message-form button {
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: lightgray;
+    cursor: pointer;
+  }
+  

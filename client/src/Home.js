@@ -58,42 +58,46 @@ const Home = () => {
 
         <div className="home">
 
-            <h1> Reached Home page </h1>
-
-            {isPeding && <div> Loading..... </div>}
+            {isPeding && <div className='loading'> Loading..... </div>}
             {/* {error && <div> {error} </div>} */}
+
+            <div className='homeUpper'>
 
 
             {user && (
-                <div>
+                <div className='homeform'>
 
                     {/* LATER USE IT FOR VAVIGATION BAR */}
+
+                    <div className='navbar'>
                 
-                    <label> Name: </label>
-                    <h3> {user.name} </h3>
+                    {/* <label> Name: </label> */}
+                    <h3 className='navbarHeading'> Hello {user.name} !!! </h3>
 
-                    <label> Id: </label>
-                    <h3> {user.id} </h3>
+                    {/* <label> Id: </label>
+                    <h3> {user.id} </h3> */}
 
-                    <label> User Id:  </label>
-                    <h3> {user.userId} </h3>
+                    {/* <label> User Id:  </label>
+                    <h3> {user.userId} </h3> */}
 
-                    <Link to = "/"> <button> Log out </button>  </Link>
+                    <Link to = "/"> <button className='logOut'> Log out </button>  </Link>
+
+                    </div>
 
                     
-                    <form onSubmit = {handleSubmit}> 
+                    <form onSubmit = {handleSubmit} className='newChannelForm'> 
 
-                        <h3> Create a new Channel </h3>
-                        <label> Channel Name: </label>
+                        <h3 className='channelHeading'> Create a new Channel </h3>
+                        <label className='channelLabel'> Channel Name: </label>
                         
-                        <input 
+                        <input className='channelInput'
                             type="text"
                             required
                             value={newChannel}
                             onChange = { (e) => setNewChannel(e.target.value) }
                         />
 
-                        <button type="submit"> Create </button>
+                        <button type="submit" className='channelButton'> Create Channel </button>
 
                     </form>
 
@@ -104,9 +108,11 @@ const Home = () => {
                 </div> 
             )}
 
+            </div>
+
 
             {user && (
-                <AllChannels user={user}/>
+                <AllChannels user={user} className='allChannels'/>
             )}
 
 

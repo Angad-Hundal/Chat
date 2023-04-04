@@ -30,27 +30,26 @@ const CreateAccount = () => {
 
             <h1> Create Account :   </h1>
 
-            <div className="create_account">
+            <div className="loginForm">
 
 
 
                 <form>
 
-                <label htmlFor="userId">ID: </label>
-                <input type="text" id="userId" name="id" value={userId} onChange={handleUserIdChange} />
+                <label htmlFor="userId" className='loginLabel'>ID: </label>
+                <input type="text" id="userId" name="id" value={userId} onChange={handleUserIdChange} className='loginInput'/>
 
-                <label htmlFor="password">Password: </label>
-                <input type="text" id="password" name="password" value={password} onChange={handlePasswordChange} />
+                <label htmlFor="password" className='loginLabel'>Password: </label>
+                <input type="text" id="password" name="password" value={password} onChange={handlePasswordChange} className='loginInput'/>
 
-                <label htmlFor="name">Name: </label>
-                <input type="text" id="name" name="name" value={name} onChange={handleNameChange} />
+                <label htmlFor="name" className='loginLabel'>Name: </label>
+                <input type="text" id="name" name="name" value={name} onChange={handleNameChange} className='loginInput'/>
 
                 </form>
 
-                {/* <Link to="/"><button> Submit </button></Link> */}
 
                 <Link to = "/">
-                <button 
+                <button className='loginButton'
         
                 onClick={(e) => {
 
@@ -64,12 +63,12 @@ const CreateAccount = () => {
 
                 }}> 
 
-                Submit
+                Create Account
         
                 </button>
                 </Link>
                 
-                <Link to = "/"> <button> Login Page </button> </Link>
+                <Link to = "/"> <button className='newAccount'> Login Page </button> </Link>
 
 
                 {/* various links to navigate */}

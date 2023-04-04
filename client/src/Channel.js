@@ -222,14 +222,21 @@ const deleteMessage = async (messageID) => {
 
   return (
 
-    <div>
+    <div className='messageForm'>
 
-        <h3> Reached Channel with ID: </h3>
-        <h3> {ChannelName} </h3>
-        <h3> and user ID: </h3>
-        <h3> {userId} </h3>
+      <div className='navbar'>
 
-        {messagePending && <div> Loading..... </div>}
+        {/* <h3> Reached Channel with ID: </h3> */}
+
+        <h3> Welcome to {ChannelName} !!! </h3>
+        {/* <h3> and user ID: </h3> */}
+        {/* <h3> {userId} </h3> */}
+
+        <Link to = "/"> <button className='logOut'> Log out </button>  </Link>
+      
+      </div>
+
+        {messagePending && <div className='loading'> Loading..... </div>}
 
 
         {allMessages && (
@@ -237,27 +244,26 @@ const deleteMessage = async (messageID) => {
           allMessages.map(message => (
               
 
-              <div key = {message.id}>
+              <div key = {message.id} className='message'>
 
                 
-                <h3> {message.userID}</h3>
-                <h3> {message.userName}</h3>
-                <h3> {message.message} </h3>
-                <h3> {message.thumUp} </h3>
-                <h3> {message.thumDown} </h3>
+                <h3 className='messagelabel'> {message.userID}</h3>
+                <h3 className='messagelabel'> {message.userName}</h3>
+                <h3 className='messagelabel'> {message.message} </h3>
 
 
-                <button onClick={ () => VoteUp(message.id) }> Thumbs up </button>
-                <button onClick={ () => VoteDown(message.id) }> Thumbs Down </button>
+
+                <button onClick={ () => VoteUp(message.id) } className='voteButton'> 👍 {message.thumUp} </button>
+                <button onClick={ () => VoteDown(message.id) } className='voteButton' > 👎 {message.thumDown} </button>
 
                 {parseInt(userId) === 1 && (
-                                <button onClick={ () => deleteMessage(message.id)}> DELETE MESSAGE </button>
+                                <button onClick={ () => deleteMessage(message.id)} className='deleteButton'> DELETE MESSAGE </button>
                             )}
                 
 
                 {message.replied && (
                   <div>
-                    <h3> This message was replied </h3>
+                    <h3 className='replyHeading'> Replies:  </h3>
                     {allReplies && allReplies.map(single_reply => (
 
                       
@@ -265,14 +271,12 @@ const deleteMessage = async (messageID) => {
                       ? (
                         <div>
                           {/* <p> REPLY: </p> */}
-                          <p>Reply from {single_reply.userName}: {single_reply.message}</p>
-                          <p> {single_reply.thumUp} </p>
-                          <p> {single_reply.thumDown} </p>
-                          <button onClick={ () => VoteUp(single_reply.id) }> Thumbs up </button>
-                          <button onClick={ () => VoteDown(single_reply.id) }> Thumbs Down </button>
+                          <p className='replyLabel' >Reply from {single_reply.userName}: {single_reply.message}</p>
+                          <button onClick={ () => VoteUp(single_reply.id) } className='voteButton'> 👍 {single_reply.thumUp} </button>
+                          <button onClick={ () => VoteDown(single_reply.id) } className='voteButton'> 👎 {single_reply.thumDown} </button>
 
                           {parseInt(userId) === 1 && (
-                                <button onClick={ () => deleteReply(single_reply.id)}> DELETE REPLY </button>
+                                <button onClick={ () => deleteReply(single_reply.id)} className='deleteButton'> DELETE REPLY </button>
                             )}
 
                         </div>
@@ -283,17 +287,17 @@ const deleteMessage = async (messageID) => {
                   </div>
                 )}
 
-                <form onSubmit={addReply} >
+                <form onSubmit={addReply} className='replyForm'>
 
-                <label>Type your Reply: </label>
-                <input 
+                <label className='replyLabel'>Type your Reply: </label>
+                <input className='replyInput'
                     type="text"
                     required
                     value={reply}
                     onChange = { (e) => {setReply(e.target.value);
                                         setReplyParentId(message.id)} }
                 />
-                <button type="submit"> Send Reply </button>
+                <button type="submit" className='replySubmit'> Send Reply </button>
                 </form>
                 
                 <h3> .................................................................. </h3>
@@ -309,17 +313,17 @@ const deleteMessage = async (messageID) => {
 
         <div>
 
-        <form onSubmit={addMessage} >
+        <form onSubmit={addMessage} className='addMessage'>
 
 
-        <label>Type your Message: </label>
-        <input 
+        <label className='messageLabel'>Type your Message: </label>
+        <input className='messageInput'
             type="text"
             required
             value={message}
             onChange = { (e) => setMessage(e.target.value) }
         />
-        <button type="submit"> Send </button>
+        <button type="submit" className='messageSend'> Send </button>
         </form>
 
         </div>

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Routes, Route } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import useFetch from './useFetch';
+import './Style.css';
 
 
 const Login = () => {
@@ -49,25 +50,24 @@ const Login = () => {
 
             <h1> Login :   </h1>
 
-            <div className="links">
-
+            <div className="loginForm">
 
 
                 <form onSubmit={handleSubmit}>
 
-                <label htmlFor="userId">ID: </label>
-                <input type="text" id="userId" name="id" value={userId} onChange={handleUserIdChange} />
+                <label htmlFor="userId" className='loginLabel'>ID: </label>
+                <input type="text" id="userId" name="id" value={userId} onChange={handleUserIdChange} className='loginInput'/>
 
-                <label htmlFor="password">Password: </label>
-                <input type="text" id="password" name="password" value={password} onChange={handlePasswordChange} />
+                <label htmlFor="password" className='loginLabel'>Password: </label>
+                <input type="text" id="password" name="password" value={password} onChange={handlePasswordChange} className='loginInput' />
 
                 {error && <div>{error}</div>}
-                <button type="submit">Login</button>
+                <button type="submit" className='loginButton'>Login</button>
 
                 </form>
 
                 
-                <Link to="/createAccount"><button> Create an account </button></Link>
+                <Link to="/createAccount"><button className='newAccount'> Create New account </button></Link>
 
             </div>
         </div>

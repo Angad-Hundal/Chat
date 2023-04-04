@@ -57,21 +57,6 @@ if (error) throw error;
 console.log('Using database chat');
 
 
-// // create the users table if it does not exist
-// connection.query(`
-//     CREATE TABLE IF NOT EXISTS users (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     userId VARCHAR(255) NOT NULL,
-//     password VARCHAR(255) NOT NULL,
-//     name VARCHAR(255) NOT NULL
-//     )
-// `, function (error) {
-//     if (error) throw error;
-//     console.log('Users table created');
-    
-// });
-
-
 
 
 // create the users table if it does not exist
