@@ -112,6 +112,27 @@ function Channel() {
     }
   };
 
+
+  
+  const deleteReply = async (messageID) => {
+    try {
+        const response = await fetch(`http://localhost:8080/deleteReply/${messageID}/${ChannelName}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            const data = await response.json();
+            console.log(`Deleted REPLY}`);
+            //setAllChannels(allChannels.filter(channel => channel.id !== channelId));
+        } else {
+            console.log(`Failed to delete Reply`);
+        }
+    } catch (error) {
+        console.error(`Failed to delete reply:`, error);
+    }
+};
+
+
+
   
 
   const addMessage = async (e) => {
@@ -226,6 +247,11 @@ function Channel() {
                           <p> {single_reply.thumDown} </p>
                           <button onClick={ () => VoteUp(single_reply.id) }> Thumbs up </button>
                           <button onClick={ () => VoteDown(single_reply.id) }> Thumbs Down </button>
+
+                          {parseInt(userId) === 1 && (
+                                <button onClick={ () => deleteReply(single_reply.id)}> DELETE REPLY </button>
+                            )}
+
                         </div>
                       ) 
                       : <p></p>
