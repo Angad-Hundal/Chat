@@ -80,7 +80,10 @@ const Home = () => {
                     {/* <label> User Id:  </label>
                     <h3> {user.userId} </h3> */}
 
+                    <div className='navbarButtons'>
+                    <Link to = {`/search/${id}`}> <button className='logOut'> Search </button>  </Link>
                     <Link to = "/"> <button className='logOut'> Log out </button>  </Link>
+                    </div>
 
                     </div>
 

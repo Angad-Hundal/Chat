@@ -68,9 +68,9 @@ const AllChannels = ({user}) => {
 
                     {channelPending && <div className='loading'> Loading..... </div>}
 
-                    <Link to={`/search/${user.id}`}>
+                    {/* <Link to={`/search/${user.id}`}>
                         <button className='search'> SEARCH </button>
-                    </Link>
+                    </Link> */}
 
                     {allChannels && (
 

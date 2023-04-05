@@ -228,11 +228,15 @@ const deleteMessage = async (messageID) => {
 
         {/* <h3> Reached Channel with ID: </h3> */}
 
-        <h3> Welcome to {ChannelName} !!! </h3>
-        {/* <h3> and user ID: </h3> */}
-        {/* <h3> {userId} </h3> */}
+        <h3 className='navbarHeading'> Welcome to {ChannelName} !!! </h3>
 
+        <div className='navbarButtons'>
+
+        <Link to = {`/home/${userId}`}> <button className='logOut'> Home </button>  </Link>
+        <Link to = {`/search/${userId}`}> <button className='logOut'> Search </button>  </Link>
         <Link to = "/"> <button className='logOut'> Log out </button>  </Link>
+
+        </div>
       
       </div>
 
@@ -246,15 +250,14 @@ const deleteMessage = async (messageID) => {
 
               <div key = {message.id} className='message'>
 
-                
-                <h3 className='messagelabel'> {message.userID}</h3>
-                <h3 className='messagelabel'> {message.userName}</h3>
-                <h3 className='messagelabel'> {message.message} </h3>
+                <h3 className='messagelabel'> User: {message.userName}</h3>
+                <h3 className='messagelabel'> Message: {message.message} </h3>
 
 
-
+                <div className='twoButtons'>
                 <button onClick={ () => VoteUp(message.id) } className='voteButton'> 👍 {message.thumUp} </button>
                 <button onClick={ () => VoteDown(message.id) } className='voteButton' > 👎 {message.thumDown} </button>
+                </div>
 
                 {parseInt(userId) === 1 && (
                                 <button onClick={ () => deleteMessage(message.id)} className='deleteButton'> DELETE MESSAGE </button>
@@ -271,13 +274,17 @@ const deleteMessage = async (messageID) => {
                       ? (
                         <div>
                           {/* <p> REPLY: </p> */}
+                          
                           <p className='replyLabel' >Reply from {single_reply.userName}: {single_reply.message}</p>
+
+                          <div className='twoButtons'>
                           <button onClick={ () => VoteUp(single_reply.id) } className='voteButton'> 👍 {single_reply.thumUp} </button>
                           <button onClick={ () => VoteDown(single_reply.id) } className='voteButton'> 👎 {single_reply.thumDown} </button>
 
                           {parseInt(userId) === 1 && (
                                 <button onClick={ () => deleteReply(single_reply.id)} className='deleteButton'> DELETE REPLY </button>
                             )}
+                          </div>
 
                         </div>
                       ) 
@@ -299,8 +306,6 @@ const deleteMessage = async (messageID) => {
                 />
                 <button type="submit" className='replySubmit'> Send Reply </button>
                 </form>
-                
-                <h3> .................................................................. </h3>
                   
 
               
@@ -323,7 +328,7 @@ const deleteMessage = async (messageID) => {
             value={message}
             onChange = { (e) => setMessage(e.target.value) }
         />
-        <button type="submit" className='messageSend'> Send </button>
+        <button type="submit" className='messageSend'> Send Message </button>
         </form>
 
         </div>
